@@ -12,7 +12,7 @@ Encoding is the process of converting the data or a given sequence of characters
 
 A categorical variable is a variable that can take on one of a limited, and usually fixed number of possible values.
 
-![title](../images/nom-ord)
+![title](../images/nom-ord.png)
 
 There are several different types of categorical data including:
 
