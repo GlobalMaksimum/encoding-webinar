@@ -38,3 +38,7 @@ The encoding techniques that are covered in the are the following:
 - K-Fold Target Encoding
 - Weight of Evidence Encoding
 - Cyclic Encoding
+
+### Installation
+
+> pip install -r required_packages.txt
