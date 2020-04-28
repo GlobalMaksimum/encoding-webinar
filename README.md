@@ -41,4 +41,4 @@ The encoding techniques that are covered in the are the following:
 
 ### Installation
 
-> pip install -r required_packages.txt
+> pip install -r requirements.txt
