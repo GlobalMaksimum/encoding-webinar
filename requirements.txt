@@ -1,0 +1,12 @@
+pandas
+numpy
+pandas_profiling
+sklearn.linear_model
+sklearn.preprocessing
+sklearn.metrics
+sklearn.base
+sklearn.model_selection
+category_encoders
+mlencoders.weight_of_evidence_encoder
+itertools
+scipy
