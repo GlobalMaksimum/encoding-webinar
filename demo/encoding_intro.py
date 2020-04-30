@@ -68,3 +68,6 @@ def content():
         * Can we have better encoding techniques ?
         * That's why we are here
     """)
+    
+if __name__ == '__main__':
+    content()

@@ -64,3 +64,6 @@ def content():
     st.error('3D VIS WILL COME HERE')
 
     st.markdown('Hence our new encoding preserves relative similarity/dissimilarity of each unique value.')
+    
+if __name__ == '__main__':
+    content()

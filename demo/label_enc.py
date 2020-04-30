@@ -44,3 +44,6 @@ def content():
     ### Write into Q & A
     What are the potential issues with LabelEncoder approach ?
     """)
+    
+if __name__ == '__main__':
+    content()

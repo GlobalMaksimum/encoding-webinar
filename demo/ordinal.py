@@ -84,3 +84,6 @@ if button2:
         from sklearn.metrics import pairwise_distances
 
     st.write(pairwise_distances(sorted_df['1'].values.reshape(-1,1)))
+    
+if __name__ == '__main__':
+    content()

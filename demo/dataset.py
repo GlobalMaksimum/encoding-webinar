@@ -45,3 +45,5 @@ def content():
     st.altair_chart(bar1,use_container_width=True)
 
 
+if __name__ == '__main__':
+    content()
