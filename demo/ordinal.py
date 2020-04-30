@@ -16,7 +16,7 @@ st.markdown("""
         
         """)
 
-df = pd.read_csv('data/breast-cancer.csv')
+df = pd.read_csv('../data/breast-cancer.csv')
 
 feat = st.selectbox('Select Feature',('age','menopause','tumor-size',
                                     'inv-nodes','node-caps','deg-malig',

@@ -4,6 +4,7 @@ import pydoc
 
 def content():
     st.header('Why do we need encoding')
+ 
     st.markdown("""
             Because majority of algorithms are implemented using Linear Algebra primitives. Such as
             * Logistic Regression
