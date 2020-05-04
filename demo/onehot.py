@@ -9,7 +9,7 @@ def content():
     2. Set only 1 relevant column/attribute/feature value to 1 and 0 others in the encoded domain
     """)
 
-    df = pd.read_csv('data/breast-cancer.csv')
+    df = pd.read_csv('../data/breast-cancer.csv')
 
     feat = st.selectbox('Select Feature',('age','menopause','tumor-size',
                                     'inv-nodes','node-caps','deg-malig',

@@ -27,7 +27,7 @@ def content():
 
     st.subheader('A non-rigirous: How to convert numeric data into non numeric strings')
     with st.echo():
-        df = pd.read_csv('data/breast-cancer.csv')
+        df = pd.read_csv('../data/breast-cancer.csv')
     feats = st.multiselect('Select a couple features',('age','menopause','tumor-size',
                                     'inv-nodes','node-caps','deg-malig',
                                     'breast','breast-quad','irradiat'))

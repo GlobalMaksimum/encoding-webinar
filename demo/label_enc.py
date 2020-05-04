@@ -5,7 +5,7 @@ import numpy as np
 
 def content():
 
-    df = pd.read_csv('data/breast-cancer.csv')
+    df = pd.read_csv('../data/breast-cancer.csv')
 
 
     st.header('How to Generalize Dictionary Encoding into N distrinct values ?')
