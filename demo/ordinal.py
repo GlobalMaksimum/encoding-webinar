@@ -1,16 +1,15 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from  sklearn.metrics import pairwise_distances
 
 def content():
     
-    st.header('What if our string feature has an Alphanumeric Order?')
+    st.markdown('## :question: What if our string feature has an Order')
 
     with st.echo():
+        'Large' > 'Medium' > 'Small'
         'A' > 'B'
-        'A' > 'a'
-        '42' > '13'
+        '15-17' > '3-5'
 
     st.markdown("""
             There is an order between the string values that might need preserving.
@@ -42,7 +41,7 @@ def content():
             So does `tumor-size`. 
             """ )
 
-    st.header('Does Label Encoder Infer and Preserve the Relationship?')
+    st.header(':question: Does Label Encoder Infer and Preserve the Relationship')
     
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
@@ -60,14 +59,15 @@ def content():
         st.subheader('Mapped Values')
         st.write(np.hstack([df[feat].unique().reshape(-1,1),enc_le]))
         st.subheader('Pairwise Distances')
+        from sklearn.metrics import pairwise_distances
         with st.echo():
             pairwise_distances(enc_le.reshape(-1,1))
         st.write(pairwise_distances(enc_le.reshape(-1,1)))
 
-        st.markdown('Encoded order is arbitrary. But we know our specific order...')
+        st.info('Encoded order is arbitrary. But we know our specific order...')
 
 
-    st.header('Can we inject the a specific order information to our encoder.')
+    st.header(':question: Can we inject the a specific order information to our encoder')
     
     st.subheader("`sklearn` has a special module for this: OrdinalEncoder")
 
@@ -77,11 +77,12 @@ def content():
     df = pd.DataFrame(df[feat])
     X_ord = pd.DataFrame(df[feat])
     
+    st.warning(":exclamation: We need to give order between categories.")
+        
     showImplementation = st.checkbox('Show Code', key='Similarity1') 
     
     if showImplementation:
         with st.echo():
-
             if feat == 'age':
                 oe = OrdinalEncoder(categories=[['20-29', '30-39', '40-49', '50-59', '60-69', '70-79']])
 
@@ -95,7 +96,23 @@ def content():
                 oe = OrdinalEncoder()
         
             X_ord[[feat]] = oe.fit_transform(df[[feat]])
-                                    
+            
+    ##########
+    
+    if feat == 'age':
+        oe = OrdinalEncoder(categories=[['20-29', '30-39', '40-49', '50-59', '60-69', '70-79']])
+
+    elif feat == 'tumor-size':
+        oe = OrdinalEncoder(categories=[['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54']])
+
+    elif feat == 'inv-nodes':
+        oe = OrdinalEncoder(categories=[['0-2', '3-5', '6-8', '9-11', '12-14', '15-17', '24-26']])
+
+    elif feat == 'deg-malig':
+        oe = OrdinalEncoder()
+        
+    X_ord[[feat]] = oe.fit_transform(df[[feat]])
+            
     button2 = st.button('Apply Ordinal Encoder')
 
     if button2:
@@ -107,7 +124,5 @@ def content():
         sorted_df['1'] = sorted_df['1'].astype(np.int8)
         st.write(sorted_df)
         st.subheader('Pairwise Distances')
-        with st.echo():
-            from sklearn.metrics import pairwise_distances
-
+        from sklearn.metrics import pairwise_distances
         st.write(pairwise_distances(sorted_df['1'].values.reshape(-1,1)))

@@ -32,9 +32,9 @@ st.dataframe(X_freq.head(10))
 
 with st.echo():
     for col in X_freq.columns:
-        freqEnc = (X_freq.groupby(col).size()) / len(X_freq)
+        freqEnc = (X_freq.groupby(col).size()) / X_freq.size
         X_freq[col] = X_freq[col].apply(lambda x : freqEnc[x])
-
+    
 button1 = st.button('Apply Frequency Encoding')
 if button1:
     st.dataframe(X_freq)

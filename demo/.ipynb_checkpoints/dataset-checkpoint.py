@@ -4,13 +4,13 @@ import numpy as np
 import altair as alt
 
 def content():
-    st.subheader('Data Import')
+    st.title('Data Review')
 
     st.markdown('* Dataset download source from [OpenML Breast cancer](https://www.openml.org/d/13)')
-    st.markdown('* This breast cancer domain was obtained from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia.')
-    st.markdown('* ***Number of Instances:*** 286')
-    st.markdown('* ***Number of Features:*** 9')
-    st.markdown('* ***Target Class:*** Whether the tumor will recur or not.')
+    st.info(':pushpin:  This breast cancer domain was obtained from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia.')
+    st.markdown(':small_orange_diamond: ***Number of Instances:*** 286')
+    st.markdown(':small_orange_diamond: ***Number of Features:*** 9')
+    st.markdown(':small_orange_diamond: ***Target Class:*** Whether the tumor will recur or not.')
     st.markdown("""
                 * Data fields (Features)  
                     * **age:** Age (in years at last birthday) of the patient at the time of diagnosis 
@@ -44,6 +44,3 @@ def content():
 
     st.altair_chart(bar1,use_container_width=True)
 
-
-if __name__ == '__main__':
-    content()
