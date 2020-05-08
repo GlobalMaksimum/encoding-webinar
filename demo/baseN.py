@@ -12,8 +12,6 @@ def content():
     
     st.title("BaseN Encoding")
 
-    #st.header("We Can Reduce Dimensionality Even More by Applying BaseN Encoding")
-
     st.markdown(" * BaseN encoding converts a category into base N digits.")
 
     st.warning(":exclamation: By reducing dimensionality, we also lose some information.")
@@ -26,16 +24,14 @@ def content():
     st.dataframe(df[feat])
     X_base_all = df[feat]
     
-    st.warning("### Enter a number N for Base N")
-    N = int(st.text_input(''))
+    #st.markdown("### Enter a number N for Base N")
+    N = int(st.text_input('Enter a number N for Base N'))
     
     st.subheader("`category_encoders` has a module for BaseN Encoding")
     
     with st.echo():
         import category_encoders as ce
         baseNEnc = ce.BaseNEncoder(base = N)
-        
-    #X_baseN[['deg-malig']] = X_baseN[['deg-malig']].astype('object')
     
     showImplementation = st.checkbox('Show Code', key='key1') 
     

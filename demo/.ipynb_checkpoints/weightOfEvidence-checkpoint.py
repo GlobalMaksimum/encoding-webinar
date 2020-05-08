@@ -14,17 +14,17 @@ def content():
 
     st.markdown(" * Weight of Evidence (WoE) is a measure of the “strength” of a grouping technique to separate good and bad.")
 
-    image = Image.open('images/woe3.jpg')
-    st.image(image)
+    image2 = Image.open('images/woee.png')
+    st.image(image2)
 
     st.markdown(" * Weight of evidence (WOE) is a measure of how much the evidence supports or undermines a hypothesis.")
 
-    image2 = Image.open('images/woe.jpg')
-    st.image(image2, use_column_width=True)
+    image = Image.open('images/woe2.png')
+    st.image(image)
 
-    st.info(":gem: This method was developed primarily to build a predictive model to evaluate the risk of loan default in the credit and financial industry.")
+    st.info(":pushpin:  This method was developed primarily to build a predictive model to evaluate the risk of loan default in the credit and financial industry.")
 
-    st.warning(":pushpin:  WoE is well suited for Logistic Regression because the Logit transformation is simply the log of the odds, i.e., ln(P(Goods)/P(Bads)).")
+    st.info(":pushpin:  WoE is well suited for Logistic Regression because the Logit transformation is simply the log of the odds, i.e., ln(P(Goods)/P(Bads)).")
 
 
     feat = st.selectbox('Select Feature',('age','menopause','tumor-size',
@@ -55,11 +55,11 @@ def content():
     if showImplementation:
         st.subheader(" **Step1:** Calculate Events and All Events")
         with st.echo():
-            mapping = df['target'].groupby(df[feat]).agg(['sum', 'count']).rename({'sum': 'events'}, axis=1)
+            mapping = df['target'].groupby(df[feat]).agg(['sum', 'count']).rename({'sum': 'events', 'count': 'all_events'}, axis=1)
         st.write(mapping)
         st.subheader(" **Step2:** Calculate Non-Events")
         with st.echo():
-            mapping['non_events'] = mapping['count'] - mapping['events']
+            mapping['non_events'] = mapping['all_events'] - mapping['events']
         st.write(mapping)
         st.subheader(" **Step3:** Calculate % of Events and % of Non-Events")
         with st.echo():

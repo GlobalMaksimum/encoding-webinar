@@ -10,8 +10,6 @@ def content():
     df.rename(columns={'Class': 'target'}, inplace=True)
     df.fillna('unknown', inplace = True)
     df['deg-malig'] = df['deg-malig'].astype('object')
-    
-    #st.header("We Can Reduce Dimensionality Using Binary Encoding")
 
     st.title("Binary Encoding")
 
@@ -20,7 +18,7 @@ def content():
     image3 = Image.open('images/ohe_binary.png')
     st.image(image3, use_column_width=True)
 
-    st.info(":pushpin:  Compared to one hot encoding, this will require fewer feature columns.")
+    st.warning(":exclamation:  Compared to one hot encoding, this will require fewer feature columns.")
 
 
     feat = st.selectbox('Select Feature',('age','menopause','tumor-size',

@@ -17,7 +17,7 @@ def content():
     
     """)
 
-    st.info(":pushpin: By dividing the data into folds we can reduce the overfitting.")
+    st.warning(":exclamation: By dividing the data into folds we can reduce the overfitting.")
 
     image = Image.open('images/kfold.png')
     st.image(image, use_column_width=True)
@@ -36,7 +36,6 @@ def content():
     with st.echo():
         df['target'].replace({'recurrence-events': 1, 'no-recurrence-events': 0}, inplace=True)
         
-    #X_kfold = pd.DataFrame(df[[feat,'target']])
     X_kfold = pd.DataFrame(df[feat])
     
     kf = KFold(n_splits = 5, shuffle = False)
@@ -49,14 +48,11 @@ def content():
             replaced = dict(replaced)
             X_kfold.loc[val_ind,f'tranformed_{feat}'] = df.iloc[val_ind][feat].replace(replaced).values
 
-    #X_kfold.loc[val_ind,f'tenc_{feat}'] = df[feat].iloc[val_ind][feat].replace(replaced).values
     fold_df.columns = ['fold_1','fold_2','fold_3','fold_4','fold_5']
 
-    st.subheader(':small_orange_diamond: Mean of Targets in K-Fold')
+    st.subheader('Mean of Targets in K-Fold')
     st.dataframe(fold_df)
 
-    #X_kfold.drop([feat], axis=1, inplace=True)
-    
     
     showImplementation = st.checkbox('Show Code', key='key1') 
     
@@ -69,7 +65,6 @@ def content():
                 if 'transformed' not in feat:
                     replaced = dict(df.iloc[train_ind][[feat,'target']].groupby(feat)['target'].mean())
                     X_kfold.loc[val_ind,f'transformed_{feat}'] = df.iloc[val_ind][feat].replace(replaced).values
-        #X_kfold.drop([feat], axis=1, inplace=True)
 
     button = st.button('Apply K-Fold Target Encoding')
     if button:

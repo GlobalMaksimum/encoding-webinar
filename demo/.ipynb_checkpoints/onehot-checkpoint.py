@@ -110,4 +110,4 @@ def content():
             pairwise_distances(enc_ohe)
         st.write(pairwise_distances(enc_ohe))
 
-    st.info(':pushpin:  Hence our new encoding preserves relative similarity/dissimilarity of each unique value.')
+    st.success('Hence our new encoding preserves relative similarity/dissimilarity of each unique value :white_check_mark:')

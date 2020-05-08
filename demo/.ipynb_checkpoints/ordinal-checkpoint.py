@@ -4,18 +4,15 @@ import numpy as np
 
 def content():
     
-    st.markdown('## :question: What if our string feature has an Order')
+    st.markdown('## What if our string feature has an Order?')
 
     with st.echo():
         'Large' > 'Medium' > 'Small'
         'A' > 'B'
         '15-17' > '3-5'
 
-    st.markdown("""
-            There is an order between the string values that might need preserving.
-             * Let's check our data for a such case.
-
-            """)
+    st.warning(":exclamation: There is an order between the string values that might need preserving.")
+    st.markdown("Let's check our data for a such case.")
 
     df = pd.read_csv('data/breast-cancer.csv')
 
@@ -41,7 +38,7 @@ def content():
             So does `tumor-size`. 
             """ )
 
-    st.header(':question: Does Label Encoder Infer and Preserve the Relationship')
+    st.header('Does Label Encoder Infer and Preserve the Relationship?')
     
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
@@ -64,10 +61,10 @@ def content():
             pairwise_distances(enc_le.reshape(-1,1))
         st.write(pairwise_distances(enc_le.reshape(-1,1)))
 
-        st.info('Encoded order is arbitrary. But we know our specific order...')
+        st.markdown('Encoded order is arbitrary. But we know our specific order...')
 
 
-    st.header(':question: Can we inject the a specific order information to our encoder')
+    st.header('Can we inject the a specific order information to our encoder?')
     
     st.subheader("`sklearn` has a special module for this: OrdinalEncoder")
 

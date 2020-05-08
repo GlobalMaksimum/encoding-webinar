@@ -21,10 +21,10 @@ def content():
 
     st.image(image1, use_column_width=True)
 
-    st.warning(':pushpin:  Nominal variable that has no numerical importance, besides ordinal variable has some order.')
+    st.info(':pushpin:  Nominal variable that has no numerical importance, besides ordinal variable has some order.')
 
-    st.info("""
-    ### :question: Why do we need encoding for Categorical Variables
+    st.warning("""
+    ### :exclamation: Why do we need encoding for Categorical Variables?
     Because majority of algorithms are implemented using Linear Algebra primitives. Such as:
     * Logistic Regression
     * SVM
@@ -45,7 +45,7 @@ def content():
     st.markdown(strhelp)
 
 
-    st.subheader(':question: A non-rigorous: How to convert non-numeric strings into numeric data')
+    st.subheader('A non-rigorous: How to convert non-numeric strings into numeric data?')
 
     with st.echo():
         df = pd.read_csv('data/breast-cancer.csv')
@@ -59,10 +59,10 @@ def content():
     if feats:
         st.dataframe(df[feats])
 
-    st.warning('### :warning: Fail to Build a LogisticRegression Model using Non-numeric Values')
-
     dt = st.selectbox('Select Data Type:', ('string','numerical value'))
 
+    st.subheader('Fit Logistic Regression Model')
+    
     if dt=='string':
         st.markdown("""
                         ```python
@@ -70,10 +70,10 @@ def content():
                         lr.fit(df[feats],df.Class)
                         ```
             """)
+        st.warning(':exclamation: Fail to Build a LogisticRegression Model using Non-numeric Values')
         with st.echo():
             lr = LogisticRegression()
             lr.fit(df[feats],df.target)
-
     else:
         st.subheader('Simplest Idea')
         st.markdown(""" 
@@ -90,6 +90,6 @@ def content():
 
     st.success('IT WORKED :white_check_mark:')
     st.markdown("""
-        :question: Can we have better encoding techniques
+        * Can we have better encoding techniques ?
         * That's why we are here :tada::tada:
         """)

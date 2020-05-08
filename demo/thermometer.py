@@ -20,7 +20,7 @@ def content():
     image2 = Image.open('images/Thermo.png')
     st.image(image2, use_column_width=True)
     
-    st.info(":pushpin: For ordinal features by applying thermometer encoding we can preserve the order.")
+    st.warning(":exclamation: For ordinal features by applying thermometer encoding we can preserve the order.")
 
     feat = st.selectbox('Select Feature',('age','tumor-size',
                                     'inv-nodes','deg-malig'))

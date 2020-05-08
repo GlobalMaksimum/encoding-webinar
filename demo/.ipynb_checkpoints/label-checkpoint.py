@@ -7,7 +7,7 @@ def content():
 
     df = pd.read_csv('data/breast-cancer.csv')
 
-    st.header(':question: How to Generalize Dictionary Encoding into N distrinct valuess')
+    st.header('How to Generalize Dictionary Encoding into N distrinct values?')
 
     feat = st.selectbox('Select Feature',('age','menopause','tumor-size',
                                     'inv-nodes','node-caps','deg-malig',
@@ -55,6 +55,6 @@ def content():
         st.subheader('Mapped Values')
         st.dataframe(X_label)
         
-    st.markdown("""
-    ### :question: What are the potential issues with Label Encoder approach
+    st.warning("""
+     :exclamation: What are the potential issues with Label Encoder approach?
     """)

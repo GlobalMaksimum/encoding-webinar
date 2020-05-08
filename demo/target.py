@@ -46,7 +46,7 @@ def content():
     steps = pd.concat([steps,targetEnc2], axis=1)
     steps.columns = ['Sum of Targets','Count of Targets','Mean of Targets']
 
-    st.subheader(":small_orange_diamond: Steps for calculating Mean of Targets")
+    st.subheader("Steps for calculating Mean of Targets")
     st.dataframe(steps)
 
     targetEnc2 = dict(targetEnc2)
