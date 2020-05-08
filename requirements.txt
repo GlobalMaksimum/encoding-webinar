@@ -1,0 +1,10 @@
+streamlit
+altair
+pandas
+pandas_profiling
+numpy
+scikit-learn
+category_encoders
+mlencoders
+more-itertools
+scipy
