@@ -8,20 +8,20 @@ def content():
     st.title("A Quick Look at Encoding")
 
     st.markdown("""
-             * Encoding is the process of converting the data or a given sequence of characters, symbols, alphabets etc., into a specified format, for the secured transmission of data.
+              Encoding is the process of converting the data or a given sequence of characters, symbols, alphabets etc., into a specified format, for the secured transmission of data.
             """)
 
     st.header('We Usually Have Categorical Variables in Our Dataset')
 
     st.markdown(' * A categorical variable is a variable that can take on one of a limited, and usually fixed number of possible values.')
 
-    st.header("Categorical Variables can be divided into 2 categories:")
+    st.markdown(" * Categorical Variables can be divided into 2 categories:")
 
     image1 = Image.open('images/cat.png')
 
     st.image(image1, use_column_width=True)
 
-    st.info(':pushpin:  Nominal variable that has no numerical importance, besides ordinal variable has some order.')
+    st.info(':pushpin:  Nominal variables have no numerical importance, besides ordinal variables have some order.')
 
     st.warning("""
     ### :exclamation: Why do we need encoding for Categorical Variables?

@@ -7,7 +7,7 @@ def content():
 
     df = pd.read_csv('data/breast-cancer.csv')
 
-    st.header('How to Generalize Dictionary Encoding into N distrinct values?')
+    st.header('How to Generalize Dictionary Encoding into N Distinct Values?')
 
     feat = st.selectbox('Select Feature',('age','menopause','tumor-size',
                                     'inv-nodes','node-caps','deg-malig',

@@ -26,35 +26,31 @@ def content():
     
     st.dataframe(df[f'{feat}'])
 
-    st.subheader("`sklearn` has a special module for One Hot Encoder:")
-    
-    with st.echo():
-        from sklearn.preprocessing import OneHotEncoder
-            
-    showImplementation = st.checkbox('Show Code', key='Similarity1') 
-    
-    if showImplementation:
-        with st.echo():
-            ohe = OneHotEncoder()
-            X_ohe = ohe.fit_transform(df[[feat]])
-
-    st.subheader("Addition to `sklearn`, `pandas` has also a module `get_dummies` for One Hot Encoding")
-    
-    showImplementation2 = st.checkbox('Show Code', key='Similarity2') 
-    
-    if showImplementation2:
-        with st.echo():
-            X_ohe = pd.get_dummies(df[feat])
-        X_ohe_all = pd.DataFrame(df[feat])
-        X_ohe_all = pd.concat([X_ohe_all,X_ohe], axis=1)
-    
     button2 = st.button('Apply One Hot Encoding')
     if button2:
         X_ohe = pd.get_dummies(df[feat])
         X_ohe_all = pd.DataFrame(df[feat])
         X_ohe_all = pd.concat([X_ohe_all,X_ohe], axis=1)
         st.dataframe(X_ohe_all)
+
+    showImplementation = st.checkbox('Show Code', key='ShowCodeOneHot') 
+    from sklearn.preprocessing import OneHotEncoder
+    
+    if showImplementation:
+        st.subheader("`sklearn` has a special module for One Hot Encoder:")
+        with st.echo():
+            from sklearn.preprocessing import OneHotEncoder
+            ohe = OneHotEncoder()
+            X_ohe = ohe.fit_transform(df[[feat]])
+
+        st.subheader("Addition to `sklearn`, `pandas` has also a module `get_dummies` for One Hot Encoding")
         
+        with st.echo():
+            X_ohe = pd.get_dummies(df[feat])
+            X_ohe_all = pd.DataFrame(df[feat])
+            X_ohe_all = pd.concat([X_ohe_all,X_ohe], axis=1)
+    
+    
     st.warning(""" 
     ### :exclamation: Think About
     - How similar/dissimilary each value in breast-quad with respect to each other ?

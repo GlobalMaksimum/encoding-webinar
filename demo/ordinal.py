@@ -4,7 +4,7 @@ import numpy as np
 
 def content():
     
-    st.markdown('## What if our string feature has an Order?')
+    st.markdown('## What If Our String Feature Has an Order?')
 
     with st.echo():
         'Large' > 'Medium' > 'Small'
