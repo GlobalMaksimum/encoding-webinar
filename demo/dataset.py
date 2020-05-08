@@ -26,7 +26,7 @@ def content():
 
 
     with st.echo():
-        df = pd.read_csv('data/breast-cancer.csv')
+        df = pd.read_csv('../data/breast-cancer.csv')
 
     st.dataframe(df)
 
