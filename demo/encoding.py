@@ -23,8 +23,8 @@ def content():
 
     st.info(':pushpin:  Nominal variables have no numerical importance, besides ordinal variables have some order.')
 
-    st.warning("""
-    ### :exclamation: Why do we need encoding for Categorical Variables?
+    st.info("""
+    ### :pushpin: Why do we need encoding for Categorical Variables?
     Because majority of algorithms are implemented using Linear Algebra primitives. Such as:
     * Logistic Regression
     * SVM
@@ -32,18 +32,18 @@ def content():
         """)
 
 
-    st.subheader('Example `sklearn` API')
-
-    with st.echo():
-        from sklearn.linear_model import LogisticRegression
-
-    with st.echo():
-        strhelp = pydoc.render_doc(LogisticRegression.fit)
+    st.subheader('Example: `sklearn` API')
+    showCode = st.checkbox('Show Code', key='showCodeSklearnApi') 
 
 
+    if showCode:
+        with st.echo():
+            from sklearn.linear_model import LogisticRegression
+            strhelp = pydoc.render_doc(LogisticRegression.fit)
+    
+    from sklearn.linear_model import LogisticRegression
     strhelp = pydoc.render_doc(LogisticRegression.fit)
     st.markdown(strhelp)
-
 
     st.subheader('A non-rigorous: How to convert non-numeric strings into numeric data?')
 
@@ -53,43 +53,50 @@ def content():
     df.rename(columns={'Class': 'target'}, inplace=True)
     df.fillna('unknown', inplace = True)
     
-    feats = st.multiselect('Select a couple features',('deg-malig',
+    feats = st.multiselect('Select a couple features',(
                                         'breast', 'irradiat'))
 
     if feats:
         st.dataframe(df[feats])
 
-    dt = st.selectbox('Select Data Type:', ('string','numerical value'))
+    #dt = st.selectbox('Select Data Type:', ('string','numerical value'))
 
-    st.subheader('Fit Logistic Regression Model')
+    fitLogisticRegression=st.button('Fit Logistic Regression Model')
     
-    if dt=='string':
+    #if dt=='string':
+    #if ( 'breast' in feats or 'irradiant' in feats):
+    if fitLogisticRegression:
         st.markdown("""
                         ```python
                         lr = LogisticRegression()
                         lr.fit(df[feats],df.Class)
                         ```
             """)
-        st.warning(':exclamation: Fail to Build a LogisticRegression Model using Non-numeric Values')
-        with st.echo():
+
+
+        try:
             lr = LogisticRegression()
             lr.fit(df[feats],df.target)
-    else:
-        st.subheader('Simplest Idea')
-        st.markdown(""" 
-        What if I simply replace string value with arbitrarily picked unique values (aka dictionary mapping)
-            """)
-        st.markdown(""" 
-            * Unique value per column/feature/attribute
-            """)
-        with st.echo():
-            X_enc = df[['breast', 'irradiat']].replace({'right':1,'left':0, 'no':0,'yes':1})
-            y_enc = df.target.replace( {'recurrence-events':1,'no-recurrence-events':0 } )
+        except Exception as ex:
+            st.error(ex)
+            st.warning(':exclamation: Fails to Build a LogisticRegression Model using Non-numeric Values')
 
-            lr = LogisticRegression().fit(X_enc, y_enc)
+            st.subheader('Simplest Idea')
+            st.markdown(""" 
+            What if I simply replace string value with arbitrarily picked unique values (aka dictionary mapping)
+                """)
+            st.markdown(""" 
+                * Unique value per column/feature/attribute
+                """)
 
-    st.success('IT WORKED :white_check_mark:')
-    st.markdown("""
-        * Can we have better encoding techniques ?
-        * That's why we are here :tada::tada:
-        """)
+            with st.echo():
+                X_enc = df[['breast', 'irradiat']].replace({'right':1,'left':0, 'no':0,'yes':1})
+                y_enc = df.target.replace( {'recurrence-events':1,'no-recurrence-events':0 } )
+
+                lr = LogisticRegression().fit(X_enc, y_enc)
+
+            st.success('IT WORKED :white_check_mark:')
+            st.markdown("""
+                * Can we have better encoding techniques ?
+                * That's why we are here :tada::tada:
+                """)
