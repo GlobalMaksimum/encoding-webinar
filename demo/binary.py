@@ -28,23 +28,25 @@ def content():
     st.dataframe(df[feat])
 
     X_binary_all = pd.DataFrame(df[feat])
-    
-    st.subheader("`category_encoders` has a module for Binary Encoding")
-    
-    with st.echo():
-        import category_encoders as ce
-        binaryEnc = ce.BinaryEncoder()
-        
-    
-    showImplementation = st.checkbox('Show Code', key='key1') 
-    
-    if showImplementation:
-        with st.echo():
-            X_binary = binaryEnc.fit_transform(df[feat])
-
-    X_binary = binaryEnc.fit_transform(df[feat])
-    X_binary_all = pd.concat([X_binary_all,X_binary], axis=1)
+    import category_encoders as ce
+    binaryEnc = ce.BinaryEncoder()
     
     button = st.button('Apply Binary Encoding')
     if button:
+        X_binary = binaryEnc.fit_transform(df[feat])
+        X_binary_all = pd.concat([X_binary_all,X_binary], axis=1)
         st.dataframe(X_binary_all)
+
+    showImplementation = st.checkbox('Show Code', key='key1') 
+    
+    if showImplementation:
+        st.subheader("`category_encoders` has a module for Binary Encoding")
+        with st.echo():
+            
+            import category_encoders as ce
+            binaryEnc = ce.BinaryEncoder()
+            X_binary = binaryEnc.fit_transform(df[feat])
+
+    
+    
+   

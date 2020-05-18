@@ -30,14 +30,7 @@ def content():
 
     X_cyclic = pd.DataFrame(df[['day','month']])
     
-    showImplementation = st.checkbox('Show Code', key='key1') 
-    
-    if showImplementation:
-        with st.echo():
-            X_cyclic['day_sin'] = np.sin(2 * np.pi * df['day']/7)
-            X_cyclic['day_cos'] = np.cos(2 * np.pi * df['day']/7)
-            X_cyclic['month_sin'] = np.sin(2 * np.pi * df['month']/12)
-            X_cyclic['month_cos'] = np.cos(2 * np.pi * df['month']/12)
+
 
     X_cyclic['day_sin'] = np.sin(2 * np.pi * df['day']/7)
     X_cyclic['day_cos'] = np.cos(2 * np.pi * df['day']/7)
@@ -47,3 +40,13 @@ def content():
     button = st.button('Apply Cyclic Encoding')
     if button:
         st.dataframe(X_cyclic)
+
+
+    showImplementation = st.checkbox('Show Code', key='key1') 
+    
+    if showImplementation:
+        with st.echo():
+            X_cyclic['day_sin'] = np.sin(2 * np.pi * df['day']/7)
+            X_cyclic['day_cos'] = np.cos(2 * np.pi * df['day']/7)
+            X_cyclic['month_sin'] = np.sin(2 * np.pi * df['month']/12)
+            X_cyclic['month_cos'] = np.cos(2 * np.pi * df['month']/12)

@@ -39,18 +39,14 @@ def content():
     with st.echo():
         df['target'].replace({'recurrence-events': 1, 'no-recurrence-events': 0}, inplace=True)
     
-    st.subheader("`mlencoders` has a module for Weight Of Evidence Encoding")
-    
-    with st.echo():
-        from mlencoders.weight_of_evidence_encoder import WeightOfEvidenceEncoder
-        weightEnc = WeightOfEvidenceEncoder()
+
         
     # For corner cases, defaulting to WOE = 0 (meaning no info). To avoid division by 0 we use default values.
     #undef = (mapping['count'] < self.min_samples) | (mapping['pos'] == 0) | (mapping['neg'] == 0)
     #mapping.loc[undef, ['pos', 'neg']] = -1
     # Final step, log of ratio of probabily estimates
     
-    showImplementation = st.checkbox('Steps of Weight Of Evidence Encoding', key='key2') 
+    showImplementation = st.checkbox('Show Steps of Weight Of Evidence Encoding', key='key2') 
     
     if showImplementation:
         st.subheader(" **Step1:** Calculate Events and All Events")
@@ -68,17 +64,16 @@ def content():
         st.subheader(" **Step4:** Calculate Weight Of Evidence Values")
         with st.echo():
             mapping['WoE'] = np.log(mapping['%_of_events'] / mapping['%_of_non_events'])
-        st.write(mapping)
-    
-        
-    X_woe = pd.DataFrame(df[feat])
-    X_woe[f'tranformed_{feat}'] = weightEnc.fit_transform(df[[feat]],df['target'])
-
-    showImplementation = st.checkbox('Show Code', key='key1') 
-    
-    if showImplementation:
+        st.subheader(" **Step5:** Apply Encoding")
+        st.subheader("`mlencoders` has a module for Weight Of Evidence Encoding")
         with st.echo():
-             X_woe[f'tranformed_{feat}'] = weightEnc.fit_transform(df[[feat]],df['target'])
+            from mlencoders.weight_of_evidence_encoder import WeightOfEvidenceEncoder
+            weightEnc = WeightOfEvidenceEncoder()
+            X_woe = pd.DataFrame(df[feat])
+            X_woe[f'tranformed_{feat}'] = weightEnc.fit_transform(df[[feat]],df['target'])
+            
+        st.write(mapping)
+             
                 
     button = st.button('Apply Weight of Evidence Encoding')
     if button:

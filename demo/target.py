@@ -31,12 +31,6 @@ def content():
     st.subheader("Simply replace")
     with st.echo():
         df['target'].replace({'recurrence-events': 1, 'no-recurrence-events': 0}, inplace=True)
-        
-    st.subheader("`category_encoders` has a module for Target Encoding")
-    
-    with st.echo():
-        import category_encoders as ce
-        targetEnc = ce.TargetEncoder()
     
     targetSum = df.groupby(feat)['target'].agg('sum')
     targetCount = df.groupby(feat)['target'].agg('count')
@@ -54,15 +48,19 @@ def content():
     X_target = pd.DataFrame(df[feat])
     X_target[f'tranformed_{feat}'] = df[feat].replace(targetEnc2).values
     
-    showImplementation = st.checkbox('Show Code', key='key1') 
-    
-    if showImplementation:
-        with st.echo():
-             X_target[f'tranformed_{feat}'] = targetEnc.fit_transform(df[feat],df['target'])
-    
     button = st.button('Apply Target Encoding')
     if button:
         st.dataframe(X_target)
+
+    st.warning(":exclamation: Because we don't know targets of the test data this can lead the overfitting.")
+    showImplementation = st.checkbox('Show Code', key='key1') 
+    
+    if showImplementation:
+        st.subheader("`category_encoders` has a module for Target Encoding")
+        with st.echo():
+            import category_encoders as ce
+            targetEnc = ce.TargetEncoder()
+            X_target[f'tranformed_{feat}'] = targetEnc.fit_transform(df[feat],df['target'])
         
         
     df_all = pd.DataFrame(df[feat])
@@ -97,16 +95,7 @@ def content():
         plt.title(alpha)
     plt.tight_layout(pad=1)
     st.pyplot()
-    
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import cross_validate
 
-    def logistic(X,y):
-        model = LogisticRegression(C = 0.12345678987654321, solver = "lbfgs", max_iter = 5000, tol = 1e-2, n_jobs = 48)
-        model.fit(X, y)
-        score = cross_validate(model, X, y, cv=3, scoring="roc_auc")["test_score"].mean()
-        print('AUC Score: ',f"{score:.6f}")
-        
     image2 = Image.open('images/target1.png')
     st.image(image2, use_column_width=True)
     
@@ -117,3 +106,4 @@ def content():
     st.image(image4, use_column_width=True)
     
     st.warning(":exclamation: Because we don't know targets of the test data this can lead the overfitting.")
+

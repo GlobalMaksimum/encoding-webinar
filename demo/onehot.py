@@ -58,28 +58,32 @@ def content():
     """)
 
     st.markdown('### 1. Similarity/Dissimilarity each value in `breast-quad` wrt each other by LabelEncoder')
-    with st.echo():
-        df['breast-quad'].unique()
+
+    st.markdown('Label Encoder applied to `breast-quad`:')
+
+    df['breast-quad'].unique()
         
-    st.markdown('Unique values are')
-    st.write(df['breast-quad'].unique())
+    #st.markdown('Unique values are')
+    #st.write(df['breast-quad'].unique())
     
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
+
     enc_le = le.fit(df['breast-quad']).transform(df['breast-quad'].unique()).reshape(-1,1)
     
-    button = st.button('Apply Label Encoding for Unique Values')
+   
+    #button = st.button('Apply Label Encoding for Unique Values')
     
-    if button:
-        st.subheader('Mapped Values')
-        st.write(enc_le)
+    #if button:
+    #st.subheader('Mapped Values')
+    st.write( enc_le)
             
             
     st.info(":pushpin:  Pairwise methods evaluate all pairs of sequences and transform the differences into a distance.")
-    with st.echo():
-        from sklearn.metrics import pairwise_distances
-    
-    showImplementation = st.checkbox('Calculate Pairwise Distance', key='key1') 
+
+    st.markdown('Pairwise distances of the result:')
+    from sklearn.metrics import pairwise_distances
+    st.write(pairwise_distances(enc_le.reshape(-1,1)))
     
     if showImplementation:
         st.markdown('#### Calculate Pairwise Distance Between Label Encoding of Each Unique Value')
@@ -87,23 +91,39 @@ def content():
             pairwise_distances(enc_le.reshape(-1,1))
         st.write(pairwise_distances(enc_le.reshape(-1,1)))
 
-    st.markdown('### 2. Similarity/Dissimilarity each value in `breast-quad` wrt each other by our new encoding scheme: One Hot Encoder')
+    buttonShowCodePairwise1 = st.button('Show Code', key="pairwiseLabel")
+    if buttonShowCodePairwise1:
+             with st.echo():
+                from sklearn.preprocessing import LabelEncoder
+                # apply label encoding
+                le = LabelEncoder()
+                enc_le = le.fit(df['breast-quad']).transform(df['breast-quad'].unique()).reshape(-1,1)
+
+                # calculate pairwise distances
+                from sklearn.metrics import pairwise_distances
+                pairwise_distances(enc_le.reshape(-1,1))
+
+
+    st.markdown('### 2. Similarity/Dissimilarity each value in `breast-quad` wrt each other by One Hot Encoder')
                                    
     ohe = OneHotEncoder()
     enc_ohe = ohe.fit(df[['breast-quad']]).transform(df['breast-quad'].unique().reshape(-1,1)).toarray()
     
-    button2 = st.button('Apply One Hot Encoding for Unique Values')
-    
-    if button2:
-        st.subheader('Mapped Values')
-        st.write(enc_ohe)
+    st.markdown('One Hot Encoding applied to `breast-quad`:')
+    st.write(enc_ohe)
+    st.markdown('Pairwise distances of the result:')
+    st.write(pairwise_distances(enc_ohe))
 
-    showImplementation2 = st.checkbox('Calculate Pairwise Distance', key='key2') 
-    
-    if showImplementation2:
-        st.markdown('#### Calculate Pairwise Distance Between One Hot Encoding of Each Unique Value')
-        with st.echo():
-            pairwise_distances(enc_ohe)
-        st.write(pairwise_distances(enc_ohe))
+    buttonShowCodePairwise2 = st.button('Show Code', key="pairwiseOhe")
+    if buttonShowCodePairwise2:
+             with st.echo():
+                # apply one hot encoder
+                ohe = OneHotEncoder()
+                enc_ohe = ohe.fit(df[['breast-quad']]).transform(df['breast-quad'].unique().reshape(-1,1)).toarray()
+
+                #calculate pairwise distances
+                from sklearn.metrics import pairwise_distances
+                pairwise_distances(enc_ohe)
+
 
     st.success('Hence our new encoding preserves relative similarity/dissimilarity of each unique value :white_check_mark:')
