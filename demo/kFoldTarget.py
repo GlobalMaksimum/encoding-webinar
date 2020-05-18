@@ -53,7 +53,10 @@ def content():
     st.subheader('Mean of Targets in K-Fold')
     st.dataframe(fold_df)
 
-    
+    button = st.button('Apply K-Fold Target Encoding')
+    if button:
+        st.dataframe(X_kfold)
+
     showImplementation = st.checkbox('Show Code', key='key1') 
     
     if showImplementation:
@@ -66,6 +69,3 @@ def content():
                     replaced = dict(df.iloc[train_ind][[feat,'target']].groupby(feat)['target'].mean())
                     X_kfold.loc[val_ind,f'transformed_{feat}'] = df.iloc[val_ind][feat].replace(replaced).values
 
-    button = st.button('Apply K-Fold Target Encoding')
-    if button:
-        st.dataframe(X_kfold)

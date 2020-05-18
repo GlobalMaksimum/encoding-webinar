@@ -35,6 +35,11 @@ def content():
 
     X_freq[f'tranformed_{feat}'] = X_freq[feat].apply(lambda x : freqEnc[x])
 
+    
+    button = st.button('Apply Frequency Encoding')
+    if button:
+        st.dataframe(X_freq)
+
     showImplementation = st.checkbox('Show Code', key='key1') 
     
     if showImplementation:
@@ -42,8 +47,3 @@ def content():
         with st.echo():
             freqEnc = (X_freq.groupby(feat).size()) / len(X_freq)
             X_freq[f'tranformed_{feat}'] = X_freq[feat].apply(lambda x : freqEnc[x])
-
-            
-    button = st.button('Apply Frequency Encoding')
-    if button:
-        st.dataframe(X_freq)

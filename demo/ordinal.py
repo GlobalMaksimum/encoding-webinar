@@ -68,31 +68,27 @@ def content():
     
     st.subheader("`sklearn` has a special module for this: OrdinalEncoder")
 
+    df = pd.DataFrame(df[feat])
+    X_ord = pd.DataFrame(df[feat])
+
+    #st.warning(":exclamation: We need to give order between categories.")
+
     with st.echo():
         from sklearn.preprocessing import OrdinalEncoder
         
-    df = pd.DataFrame(df[feat])
-    X_ord = pd.DataFrame(df[feat])
+        if feat == 'age':
+            oe = OrdinalEncoder(categories=[['20-29', '30-39', '40-49', '50-59', '60-69', '70-79']])
+
+        elif feat == 'tumor-size':
+                oe = OrdinalEncoder(categories=[['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54']])
+
+        elif feat == 'inv-nodes':
+            oe = OrdinalEncoder(categories=[['0-2', '3-5', '6-8', '9-11', '12-14', '15-17', '24-26']])
+
+        elif feat == 'deg-malig':
+            oe = OrdinalEncoder()
     
-    st.warning(":exclamation: We need to give order between categories.")
-        
-    showImplementation = st.checkbox('Show Code', key='Similarity1') 
-    
-    if showImplementation:
-        with st.echo():
-            if feat == 'age':
-                oe = OrdinalEncoder(categories=[['20-29', '30-39', '40-49', '50-59', '60-69', '70-79']])
-
-            elif feat == 'tumor-size':
-                 oe = OrdinalEncoder(categories=[['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54']])
-
-            elif feat == 'inv-nodes':
-                oe = OrdinalEncoder(categories=[['0-2', '3-5', '6-8', '9-11', '12-14', '15-17', '24-26']])
-
-            elif feat == 'deg-malig':
-                oe = OrdinalEncoder()
-        
-            X_ord[[feat]] = oe.fit_transform(df[[feat]])
+        X_ord[[feat]] = oe.fit_transform(df[[feat]])
             
     ##########
     

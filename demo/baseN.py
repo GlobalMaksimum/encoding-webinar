@@ -27,21 +27,25 @@ def content():
     #st.markdown("### Enter a number N for Base N")
     N = int(st.text_input('Enter a number N for Base N'))
     
-    st.subheader("`category_encoders` has a module for BaseN Encoding")
-    
-    with st.echo():
+    button = st.button('Apply BaseN Encoding')
+    if button:
         import category_encoders as ce
         baseNEnc = ce.BaseNEncoder(base = N)
+       
+
+        X_baseN = baseNEnc.fit_transform(df[feat])
+        X_base_all = pd.concat([X_base_all,X_baseN], axis=1)
+        st.dataframe(X_base_all)
     
     showImplementation = st.checkbox('Show Code', key='key1') 
     
     if showImplementation:
+        st.subheader("`category_encoders` has a module for BaseN Encoding")
         with st.echo():
+            import category_encoders as ce
+            baseNEnc = ce.BaseNEncoder(base = N)
             X_baseN = baseNEnc.fit_transform(df[feat])
 
-    X_baseN = baseNEnc.fit_transform(df[feat])
-    X_base_all = pd.concat([X_base_all,X_baseN], axis=1)
+   
     
-    button = st.button('Apply BaseN Encoding')
-    if button:
-        st.dataframe(X_base_all)
+    

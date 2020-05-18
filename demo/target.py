@@ -31,11 +31,9 @@ def content():
     with st.echo():
         df['target'].replace({'recurrence-events': 1, 'no-recurrence-events': 0}, inplace=True)
         
-    st.subheader("`category_encoders` has a module for Target Encoding")
-    
-    with st.echo():
-        import category_encoders as ce
-        targetEnc = ce.TargetEncoder()
+  
+    import category_encoders as ce
+    targetEnc = ce.TargetEncoder()
     
     targetSum = df.groupby(feat)['target'].agg('sum')
     targetCount = df.groupby(feat)['target'].agg('count')
@@ -53,14 +51,20 @@ def content():
     X_target = pd.DataFrame(df[feat])
     X_target[f'tranformed_{feat}'] = df[feat].replace(targetEnc2).values
     
-    showImplementation = st.checkbox('Show Code', key='key1') 
-    
-    if showImplementation:
-        with st.echo():
-             X_target[f'tranformed_{feat}'] = targetEnc.fit_transform(df[feat],df['target'])
-            
     button = st.button('Apply Target Encoding')
     if button:
         st.dataframe(X_target)
 
     st.warning(":exclamation: Because we don't know targets of the test data this can lead the overfitting.")
+    showImplementation = st.checkbox('Show Code', key='key1') 
+    
+    if showImplementation:
+        st.subheader("`category_encoders` has a module for Target Encoding")
+        with st.echo():
+            import category_encoders as ce
+            targetEnc = ce.TargetEncoder()
+            X_target[f'tranformed_{feat}'] = targetEnc.fit_transform(df[feat],df['target'])
+            
+    
+
+    
